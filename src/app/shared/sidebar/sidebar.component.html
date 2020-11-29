@@ -1,0 +1,20 @@
+
+<div id="wrapper">
+  <div id="sidebar-wrapper">
+      <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+        <div class="card-header"><img class="logo-img" style="margin-left: 2px" src="assets/images/LOG-curvas.png" width="150" alt="logo" ></div>
+      <li  [ngClass]="{active: activeRouteMenu(menu.link)}"  *ngFor="let menu of authService.menu" >
+        <a><i [class]="menu.icono"></i> &nbsp; <span class="fa-lg pull-left">{{ menu.descripcion }} </span></a>
+        <ul  class="nav-pills nav-stacked" style="list-style-type:none;">
+         <li    [ngClass]="{active: activeRoute(submenu.link)}" *ngFor='let submenu of menu.submenu'>
+          <a    [routerLink]="[ submenu.link ]">{{ submenu.descripcion }}</a>
+        </li> 
+      </ul>
+    </li>
+    </ul>
+  </div>
+</div>
+<!-- <p-menubar [model]="items">
+  <input type="text" pInputText placeholder="Search">
+  <button pButton label="Logout" icon="pi pi-power-off"></button>
+</p-menubar> -->

@@ -1,0 +1,102 @@
+<div class="page-head">
+  <h2 class="page-head-title">Mantenimiento de Cliente </h2>
+  <nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb page-head-nav">
+      <li class="breadcrumb-item"><a href="#">Mantenimiento</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/mantenimiento/listadocliente']" routerLinkActive="router-link-active" >Listado de Clientes</a></li>
+      <li class="breadcrumb-item active">Nuevo Cliente</li>
+    </ol>
+  </nav>
+</div>
+<div class="main-content container-fluid">
+
+  
+    <div class="col-md-12">
+      <div class="card card-border-color card-border-color-primary">
+        <div class="card-header card-header-divider">Datos de Cliente<span class="card-subtitle">Nuevo cliente</span></div>
+        <div class="card-body ">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+        
+        
+            <div class="form-row">
+              <div class="form-group col">
+                  <label>Razón social</label>
+              
+                  <input  type="text" maxlength="50" name="razonsocial" formControlName="razonsocial" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.razonsocial.errors }"
+                  [(ngModel)]="model.razonsocial"     placeholder="Razón social">
+                      <div *ngIf="submitted && f.razonsocial.errors" class="invalid-feedback">
+                          <div *ngIf="f.razonsocial.errors.required">La razón social es requerida</div>
+                      </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col">
+                <label>Tipo documento</label>
+                <p-dropdown name="tipodocumentoid" formControlName="tipodocumentoid"  id="tipodocumentoid" [options]="lista_tiposdocumentos" 
+                  [(ngModel)]="model.tipodocumentoid"  
+                scrollHeight="40vh"  
+                placeholder="seleccione un documento"
+                [style]="{'width':'100%'}"  [resetFilterOnHide]="true"  
+                [hideTransitionOptions]="'0ms'"
+                [showTransitionOptions]="'0ms'"   >
+            <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align:middle;">{{item.label}}</span>
+            </ng-template>
+       
+        </p-dropdown>
+            <div *ngIf="submitted && f.tipodocumentoid.errors" class="invalid-feedback">
+              <div *ngIf="f.tipodocumentoid.errors.required">El tipo de documento es requerido</div>
+          </div>
+             </div>
+
+            </div>
+            <div class="form-row">
+             <div class="form-group col">
+              <label>Documento</label>
+              <input  type="text" maxlength="20" name="ruc" formControlName="ruc" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ruc.errors }"
+              [(ngModel)]="model.ruc"     placeholder="documento">
+                  <div *ngIf="submitted && f.ruc.errors" class="invalid-feedback">
+                      <div *ngIf="f.ruc.errors.required">El documento es requerido</div>
+                  </div>
+            </div>
+
+          </div>
+          <div class="form-row">
+            <div class="row offset-5 mt-1">
+                <div class="col-sm-12 pl-0">
+                  <p class="text-right">
+                    <button  class="btn btn-space btn-primary" type="submit">Guardar</button>
+                    <button  (click)="cancel()" class="btn btn-space btn-secondary">Cancel</button> 
+                  </p>
+                </div>
+            </div>
+                  
+            </div>
+          </form>
+        </div>
+        </div>
+      </div>
+  </div>
+  <p-toast position="bottom-center"  key="c" (onClose)="onReject()" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div class="p-flex p-flex-column" style="flex: 1">
+            <div class="p-text-center">
+                <!-- <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i> -->
+                <h4>{{message.summary}}</h4>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="row">
+                <div class="p-col-6">
+                    <button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"></button>
+                </div>
+                <div class="p-col-6">
+                    <button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+  <p-toast position="top-left"></p-toast>
+<ngx-spinner size="default" type = "ball-spin-fade"></ngx-spinner>
